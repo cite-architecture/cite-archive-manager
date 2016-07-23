@@ -1,0 +1,5 @@
+ext {
+  collectionInvSchema = "schemas/cite/CiteCollectionInventory.rng"
+  textInvSchema = "schemas/cts/TextInventory.rng"
+  citationConfSchema = "schemas/cts/CitationConfiguration.rng"
+}

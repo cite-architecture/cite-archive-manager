@@ -1,0 +1,32 @@
+
+/* Version numbers for use in compilation.
+
+   NB: dependencies within buildScript task do not have access to
+   these properties!
+
+ */
+project.ext {
+    groovyVersion = "2.+"
+
+    jingVersion = "20091111"
+    saxonVersion = "8.7"
+
+    junitVersion = "4.8.2"
+    xmlunitVersion = "1.3"
+
+
+    // report these dependencies in formal spec:
+    versionMap = [
+      "safecsv" : "1.+",
+
+      "citemgr": "3.+",
+
+      "cite" : "3.+",
+      "hocuspocus" : "2.+",
+      "prestochango" : "1.+",
+
+      "abracadabra" : "0.3.0",
+      "nysi" : "0.2.4"
+
+    ]
+}
