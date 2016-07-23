@@ -1,0 +1,23 @@
+# Dependencies
+
+
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            cite-archive-manager
+tagline:          'Simple build system for managing a CITE archive'
+description:      'Longer description...'
+baseurl: '/cite-archive-manager/'
+
+
+
+
+links:
+  - title: CITE architecture home page
+    url: http://cite-architecture.github.io/
+    external: true
+  - title: Github project
+    url: https://github.com/cite-architecture/cite-archive-manager
+    external: true
