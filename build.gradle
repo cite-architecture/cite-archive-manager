@@ -1,8 +1,8 @@
-import com.github.rjeschke.txtmark.*
+
 
 buildscript {
   apply from: "conf.gradle"
-  
+
   apply from: "sysconf/versions.gradle"
   apply from: "sysconf/schemas.gradle"
 
@@ -13,8 +13,12 @@ buildscript {
     }
   }
   dependencies {
-    classpath group: 'com.github.rjeschke', name: 'txtmark', version: '0.11'
+
     // dependencies from versionMap:
+    classpath group:   'edu.harvard.chs', name : 'cite' , version: versionMap['cite']
+
+
+
     classpath group:   'org.homermultitext', name : 'citemgr' , version: versionMap['citemgr']
     classpath group: 'edu.holycross.shot', name : 'hocuspocus' , version: versionMap['hocuspocus']
     classpath group: 'edu.holycross.shot', name : 'prestochango' , version: versionMap['prestochango']
@@ -28,6 +32,10 @@ import edu.holycross.shot.hocuspocus.Corpus
 import edu.holycross.shot.prestochango.CollectionArchive
 import edu.holycross.shot.abracadabra.CiteIndex
 import edu.holycross.shot.nysi.ImgTurtleizer
+
+
+import edu.holycross.shot.hocuspocus.TextInventory
+import edu.harvard.chs.cite.CtsUrn
 
 import org.apache.tools.ant.filters.*
 
@@ -55,15 +63,6 @@ repositories {
     }
 }
 
-configurations {
-  rdf
-}
-/*
-dependencies {
-  rdf
-}
-*/
-
 
 
 /*
@@ -76,7 +75,7 @@ task checkti(type: JavaExec) {
     classpath sourceSets.main.output.classesDir
     classpath configurations.runtime
 }
-*/
+
 
 task checkccinv() {
     description = "Verifies contents of configured collection inventory."
@@ -84,7 +83,7 @@ task checkccinv() {
       System.err.println "checkccinv:  not yet implemented."
     }
 }
-/*
+
 task checkidxinv() {
     description = "Verifies contents of configured collection inventory."
     doLast {
@@ -165,6 +164,11 @@ ctsttl.doLast {
       System.err.println "ctsttl: unable to create inventory and archive!"
       throw e
     }
+
+    // TEST:
+
+    TextInventory ti = new TextInventory(inv)
+    println
     Corpus c = new Corpus(inv,citationConfig,archiveDir, new File("${project.rootDir}/${textInvSchema}"))
 
 
@@ -182,6 +186,11 @@ ctsttl.doLast {
 }
 
 
+
+
+
+
+/*
 task filterImgs(type: Copy) {
   description = "Filter copies configurable image collection info."
   from (file(imgcolldir)) {
@@ -307,7 +316,7 @@ task ttl (dependsOn: [ctsttl, imgttl, ccttl, idxttl]) {
 	  }
 	}
       } }
-
+*/
 // too slow to tolerate :-(
 /*
         System.err.println "Adding data from cts ttl ..."
@@ -334,24 +343,12 @@ task ttl (dependsOn: [ctsttl, imgttl, ccttl, idxttl]) {
         }
 */
 
+
+/*s
 // Big project runs out of memory with this approach :-(
 //+ ctsttl.getText(charEnc) + collectionsttl.getText(charEnc) + idxttl.getText(charEnc) + citeimgttl.getText(charEnc), charEnc)
 
 
         System.out.println "\nCompleted generating all TTL in ${buildDir}/ttl.\n"
     }
-}
-
-
-
-
-
-task zipTtl(type: Zip, dependsOn: [ttl]) {
-  description = "Builds a zip file of all TTL output"
-  from(file("${buildDir}/ttl"))
-  include("** / *.ttl")
-}
-
-artifacts {
-  rdf zipTtl
-}
+}*/
