@@ -168,7 +168,6 @@ ctsttl.doLast {
     // TEST:
 
     TextInventory ti = new TextInventory(inv)
-    println
     Corpus c = new Corpus(inv,citationConfig,archiveDir, new File("${project.rootDir}/${textInvSchema}"))
 
 
