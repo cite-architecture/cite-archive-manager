@@ -115,34 +115,27 @@ ctstab.doFirst() {
   }
 }
 ctstab.doLast() {
-  println "build corpus from " + ctsinventory + " and " + ctsarchive
-  println "Work in " + buildDir
+  println "Tabulating corpus from configuration in " + ctsinventory + " and " + ctscitationconfig + " against local files in " + ctsarchive
+  println "Saving results in ${buildDir}/tabs"
   File inv = new File("${ctsinventory}")
   File citationConfig = new File("${ctscitationconfig}")
   File textArchive = new File("${ctsarchive}")
   File tiSchema =    new File("${project.rootDir}/${textInvSchema}")
   File citationConfSchema =    new File("${project.rootDir}/${citationConfSchema}")
   Corpus c = new Corpus(inv, citationConfig, textArchive, tiSchema)
-  c.debug = 10
+  //c.debug = 10
   c.tabulateRepository(new File(buildDir, "tabs"))
 }
 
 
 task ctsttl() {
-  description = "Generates TTL statements about text contents"
+  description = "Generates RDF representation of all texts in configured text archive"
 }
 ctsttl.doFirst {
-  System.err.println "ctsttl will use inventory ${ctsinventory}"
-  System.err.println "and archive ${ctsarchive}."
-  /*
-	  if (ttladditions){
-			System.err.println "Will add ttl data from ${ttladditions}."
-	  } else {
-			System.err.println "No additions specified."
-	  }
-*/
-
+  println "Building RDF for corpus from configuration in " + ctsinventory + " and " + ctscitationconfig + " against local files in " + ctsarchive
+  println "Saving results in ${buildDir}/tabs"
 }
+
 ctsttl.doLast {
   if (! buildDir.exists()) {
     buildDir.mkdir()
@@ -164,6 +157,7 @@ ctsttl.doLast {
       System.err.println "ctsttl: unable to create inventory and archive!"
       throw e
     }
+
 
     // TEST:
 
