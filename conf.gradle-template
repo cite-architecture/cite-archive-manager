@@ -10,7 +10,7 @@ project.ext {
     // Path to citation configuration file:
     ctscitationconfig = ""
 
-    // Path to directory where XML editions are found:
+    // Path to root directory where editions are found:
     ctsarchive = ""
 
 
