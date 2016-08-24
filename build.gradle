@@ -177,10 +177,6 @@ ctsttl.doLast {
 
 
 
-
-
-
-/*
 task filterImgs(type: Copy) {
   description = "Filter copies configurable image collection info."
   from (file(imgcolldir)) {
@@ -218,7 +214,7 @@ imgttl.doLast {
 
   imgttl.ttl(ttlFile, prefix)
 }
-*/
+
 
 
 task ccttl {
@@ -287,6 +283,10 @@ task ttl (dependsOn: [ctsttl, imgttl, ccttl, idxttl]) {
     String charEnc = "UTF-8"
     String prefix = "${prefixString}"
 
+// TRY LIKE THIS:
+    //src.withInputStream { input ->
+ //   target << input
+//}
     File ctsttl = new File("${buildDir}/ttl/cts.ttl")
     File collectionsttl = new File("${buildDir}/ttl/collections.ttl")
     File idxttl = new File("${buildDir}/ttl/indices.ttl")
