@@ -221,7 +221,6 @@ imgttl.doLast {
 */
 
 
-
 task ccttl {
   description = "Generates RDF for Collections configured for prestochango"
 }
@@ -236,7 +235,7 @@ ccttl.doLast {
 	CollectionArchive cc = new CollectionArchive(invFile, schemaFile, archiveDir)
 	//cc.debug = 5
 	println "\nFrom inventory in ${collinv} and data in ${collarchive}:"
-	println "\tCollection list:  " + cc.getCollectionList() + "\n"
+	println "\tCollection list:  " + cc.getCollections() + "\n"
 	if (! buildDir.exists()) {
 	  buildDir.mkdir()
 	}
