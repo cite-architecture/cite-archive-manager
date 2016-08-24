@@ -276,36 +276,42 @@ idxttl.doLast {
   }
 }
 
+*/
 
-task ttl (dependsOn: [ctsttl, imgttl, ccttl, idxttl]) {
+//task ttl (dependsOn: [ctsttl, imgttl, ccttl, idxttl]) {
+task ttl (dependsOn: [ctsttl, imgttl, ccttl]) {
   description = "Concatenates separate TTL files into a single graph."
   doLast {
     String charEnc = "UTF-8"
     String prefix = "${prefixString}"
 
-// TRY LIKE THIS:
+    // TRY LIKE THIS ?
     //src.withInputStream { input ->
- //   target << input
-//}
-    File ctsttl = new File("${buildDir}/ttl/cts.ttl")
-    File collectionsttl = new File("${buildDir}/ttl/collections.ttl")
-    File idxttl = new File("${buildDir}/ttl/indices.ttl")
-    File citeimgttl = new File("${buildDir}/ttl/citeimgs.ttl")
+    //   target << input
+    //}
 
-    def srcFiles =  [ctsttl, collectionsttl, idxttl, citeimgttl]
-
-    File ttl = new File("${buildDir}/ttl/all.ttl")
-    ttl.append( prefix )
-
-    srcFiles.each {  f ->
+    def fileSet = [
+      new File("${buildDir}/ttl/cts.ttl"),
+      new File("${buildDir}/ttl/collections.ttl"),
+      //new File("${buildDir}/ttl/indices.ttl"),
+      new File("${buildDir}/ttl/citeimgs.ttl")
+    ]
+    File composite = new File(buildDir, "all.ttl")
+      
+    fileSet.each {  f ->
       if (f.exists()) {
-	ttl.withWriterAppend(charEnc) {writer ->
-	  f.newReader(charEnc).eachLine {String line ->
-	    writer << "\n${line}"
-	  }
+	f.withInputStream { input ->
+	  composite << input
 	}
-      } }
-*/
+	//ttl.withWriterAppend(charEnc) { writer ->
+	// f.newReader(charEnc).eachLine {String line ->
+	//   writer << "\n${line}"
+	// }
+	
+	}
+      }
+    }
+  }
 // too slow to tolerate :-(
 /*
         System.err.println "Adding data from cts ttl ..."
