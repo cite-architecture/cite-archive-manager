@@ -14,11 +14,8 @@ buildscript {
   }
   dependencies {
 
-    // dependencies from versionMap:
+
     classpath group:   'edu.harvard.chs', name : 'cite' , version: versionMap['cite']
-
-
-
     classpath group:   'org.homermultitext', name : 'citemgr' , version: versionMap['citemgr']
     classpath group: 'edu.holycross.shot', name : 'hocuspocus' , version: versionMap['hocuspocus']
     classpath group: 'edu.holycross.shot', name : 'prestochango' , version: versionMap['prestochango']
@@ -221,7 +218,7 @@ imgttl.doLast {
 
   imgttl.ttl(ttlFile, prefix)
 }
-
+*/
 
 
 
@@ -248,11 +245,11 @@ ccttl.doLast {
 	  ttlDir.mkdir()
 	}
 	File testOut = new File(ttlDir, "collections.ttl")
-	cc.ttl(testOut, prefix)
+	testOut.setText(cc.turtleizeArchive())
   }
 }
 
-
+/*
 task idxttl () {
   description = "Generates RDF for indices configured for abracadabra"
 }
