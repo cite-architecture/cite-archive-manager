@@ -240,11 +240,18 @@ ccttl.doLast {
 	  ttlDir.mkdir()
 	}
 	File testOut = new File(ttlDir, "collections.ttl")
-	testOut.setText(cc.turtleizeArchive())
+	//testOut.setText(cc.turtleizeArchive())
+	//cc.ttl(testOut, prefix)
+	testOut.setText("")
+	if (prefix){ testOut << cc.prefix }
+	testOut << cc.ttlExtensionMap()
+	cc.collections.each { c ->
+		testOut << cc.turtleizeCollection(c)
+	}
   }
 }
 
-/*
+
 task idxttl () {
   description = "Generates RDF for indices configured for abracadabra"
 }
@@ -276,10 +283,10 @@ idxttl.doLast {
   }
 }
 
-*/
+
 
 //task ttl (dependsOn: [ctsttl, imgttl, ccttl, idxttl]) {
-task ttl (dependsOn: [ctsttl, imgttl, ccttl]) {
+task ttl (dependsOn: [ctsttl, imgttl, ccttl, idxttl]) {
   description = "Concatenates separate TTL files into a single graph."
   doLast {
     String charEnc = "UTF-8"
@@ -293,7 +300,7 @@ task ttl (dependsOn: [ctsttl, imgttl, ccttl]) {
     def fileSet = [
       new File("${buildDir}/ttl/cts.ttl"),
       new File("${buildDir}/ttl/collections.ttl"),
-      //new File("${buildDir}/ttl/indices.ttl"),
+      new File("${buildDir}/ttl/indices.ttl"),
       new File("${buildDir}/ttl/citeimgs.ttl")
     ]
     File composite = new File(buildDir, "all.ttl")
