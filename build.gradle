@@ -171,7 +171,7 @@ ctsttl.doLast {
       ttlDir.mkdir()
     }
     File ttlFile = new File(ttlDir,"cts.ttl")
-    c.turtleizeRepository(ttlDir, true)
+    c.turtleizeRepository(ttlDir, false)
   }
 }
 
@@ -304,6 +304,8 @@ task ttl (dependsOn: [ctsttl, imgttl, ccttl, idxttl]) {
       new File("${buildDir}/ttl/citeimgs.ttl")
     ]
     File composite = new File(buildDir, "all.ttl")
+
+	composite << prefixString
       
     fileSet.each {  f ->
       if (f.exists()) {
